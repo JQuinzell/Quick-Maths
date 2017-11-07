@@ -38,9 +38,14 @@ function orthogonalSet(vectors) {
 }
 
 function orthogonalProjection(y, u) {
+  let num = math.dot(y, u)
+  let denom = math.dot(u, u)
+
+  //weird situation
+  //not sure why mathjs cant handle its own fractions...
   let fracResult = math.fraction(
-    math.dot(y, u),
-    math.dot(u, u)
+    math.number(num),
+    math.number(denom)
   )
 
   return math.multiply(fracResult, u)
@@ -57,15 +62,18 @@ function unitVector(v) {
 }
 
 function gramSchmidt(basis) {
-  return basis.map((vector, i) => (
-    gramSchmidtVector(i, basis)
-  ))
+  let solutions = []
+  return basis.map((vector, i) => {
+    const result = gramSchmidtVector(i, solutions, vector)
+    solutions.push(result)
+    return result
+  })
 }
 
-function gramSchmidtVector(p, basis) {
-  return basis.slice(0, p).reduce((sum, vector) => (
-    math.subtract(sum, orthogonalProjection(basis[p], vector))
-  ), basis[p])
+function gramSchmidtVector(p, solutions, current) {
+  return solutions.slice(0, p).reduce((sum, vector) => (
+    math.subtract(sum, orthogonalProjection(current, vector))
+  ), current)
 }
 
 module.exports = {
