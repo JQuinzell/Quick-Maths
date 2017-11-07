@@ -16,6 +16,10 @@ function convertFraction(frac) {
   return `${frac.s < 1 ? '-' : ''}${frac.n}/${frac.d}`
 }
 
+//Currently works for problems 1-6
+//input values of vectors
+//run program with node test.js
+//copy output into mathlab
 let vectors = [
   [3,-2,5],
   [3,7,1]
