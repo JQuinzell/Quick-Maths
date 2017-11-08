@@ -7,12 +7,12 @@ export default class Vector extends React.Component {
     super(props)
 
     this.state = {
-      vector: [0,0,0]
+      vector: [0,0,0] || props.vector
     }
   }
 
   onChange(matrix) {
-    let vector = matrix[0].map(Number)
+    let vector = matrix
     this.setState({
       vector
     }, () => {

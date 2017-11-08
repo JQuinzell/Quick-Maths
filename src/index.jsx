@@ -1,7 +1,9 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 
+import LeastSquares from './hw_problems/LeastSquares'
+
 ReactDOM.render(
-  <h1>Hello</h1>,
+  <LeastSquares/>,
   document.getElementById('app')
 )

@@ -70,7 +70,7 @@ class MatrixCell extends React.Component {
 	}
 
 	componentDidMount() {
-		if(this.props.active) this.focus()
+		// if(this.props.active) this.focus()
 	}
 
 	componentDidUpdate() {
@@ -97,7 +97,7 @@ export default class Matrix extends React.Component {
 			x: -1,
 			y: -1,
 			caret: 0,
-			columns: this.props.columns
+			columns: this.props.columns || this.rowsToColumns(this.props.rows)
 		}
 
 		this.style = {
@@ -108,6 +108,18 @@ export default class Matrix extends React.Component {
 			padding: '0 2px',
 			borderRadius: '4px'
 		}
+	}
+
+	rowsToColumns(rows) {
+		let columns = new Array(rows[0].length)
+		for (var i = 0; i < rows.length; i++) {
+			for (var j = 0; j < columns.length; j++) {
+				columns[j] = columns[j] || new Array(rows.length)
+				columns[j][i] = rows[i][j]
+			}
+		}
+
+		return columns
 	}
 
   setColumns(state) {
@@ -343,6 +355,7 @@ export default class Matrix extends React.Component {
 
 Matrix.propTypes = {
 	columns: PropTypes.array,
+	rows: PropTypes.array,
 	resize: PropTypes.oneOf(['both', 'vertical', 'horizontal', 'none']),
 	readonly: PropTypes.bool
 }
