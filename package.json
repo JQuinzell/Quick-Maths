@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "mathjs": "^3.16.5",
+    "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "webpack-dev-server": "^2.9.4"

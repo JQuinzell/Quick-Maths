@@ -1,4 +1,5 @@
 import * as React from 'react'
+import Matrix from './matrix'
 
 export default class Vector extends React.Component {
 
@@ -6,37 +7,25 @@ export default class Vector extends React.Component {
     super(props)
 
     this.state = {
-      value: ''
+      vector: [0,0,0]
     }
   }
 
-  textToVector(text) {
-    //remove potential spaces around commas
-    return text.split(/[\s]*,[\s]*/).map(Number)
-  }
-
-  handleSubmit(e) {
-    e.preventDefault()
-  }
-
-  handleChange(e) {
-    let vector = this.textToVector(e.target.value)
-    this.props.onResult(vector)
+  onChange(matrix) {
+    let vector = matrix[0].map(Number)
     this.setState({
-      value: e.target.value
+      vector
+    }, () => {
+      this.props.onChange(this.state.vector)
     })
   }
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit.bind(this)}>
-        <label htmlFor="vector">
-          Vector:
-          <input type="text"
-                 value={this.state.value}
-                 onChange={this.handleChange.bind(this)}/>
-        </label>
-      </form>
+      <Matrix
+        columns={[this.state.vector]}
+        resize="vertical"
+        onChange={this.onChange.bind(this)}/>
     )
   }
 }
