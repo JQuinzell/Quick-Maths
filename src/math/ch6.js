@@ -7,25 +7,25 @@ let combos = require('./utils').combinations
 
 
 //vector length
-function length(v) {
+export function length(v) {
   return math.sqrt(math.dot(v, v))
 }
 
 //Vector Distance
-function distance(u, v) {
+export function distance(u, v) {
   return length(math.subtract(u, v))
 }
 
 //Vector Orthogonality
-function orthogonal(u, v) {
+export function orthogonal(u, v) {
   return math.dot(u, v) === 0
 }
 
-function isUnitVector(u) {
+export function isUnitVector(u) {
   return length(u) === 1
 }
 
-function orthogonalSet(vectors) {
+export function orthogonalSet(vectors) {
   for (var i = 0; i < vectors.length; i++) {
     for (var j = 0; j < vectors.length; j++) {
       let ui = vectors[i]
@@ -37,7 +37,7 @@ function orthogonalSet(vectors) {
   return true
 }
 
-function orthogonalProjection(y, u) {
+export function orthogonalProjection(y, u) {
   let num = math.dot(y, u)
   let denom = math.dot(u, u)
 
@@ -51,17 +51,17 @@ function orthogonalProjection(y, u) {
   return math.multiply(fracResult, u)
 }
 
-function orthonormal(vectors) {
+export function orthonormal(vectors) {
   return orthogonalSet(vectors) && vectors.every(v => length(v) === 1)
 }
 
 //Find unit vector
-function unitVector(v) {
+export function unitVector(v) {
   let normalizingFactor = math.fraction(1, length(v))
   return math.multiply(normalizingFactor, v)
 }
 
-function gramSchmidt(basis) {
+export function gramSchmidt(basis) {
   let solutions = []
   return basis.map((vector, i) => {
     const result = gramSchmidtVector(i, solutions, vector)
@@ -74,9 +74,4 @@ function gramSchmidtVector(p, solutions, current) {
   return solutions.slice(0, p).reduce((sum, vector) => (
     math.subtract(sum, orthogonalProjection(current, vector))
   ), current)
-}
-
-module.exports = {
-  length, distance, orthogonal, unitVector, orthogonalSet, orthogonalProjection,
-  orthonormal, gramSchmidt
 }
