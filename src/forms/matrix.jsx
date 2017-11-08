@@ -112,7 +112,7 @@ export default class Matrix extends React.Component {
 
   setColumns(state) {
     this.setState(state, () => {
-      this.props.onChange(this.getColumns())
+      this.props.onChange(this.getRows())
     })
   }
 
